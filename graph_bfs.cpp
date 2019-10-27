@@ -43,6 +43,7 @@ void Graph::BFS(int s)
 	for(int i = 0; i < V; i++) 
 		visited[i] = false; 
 
+	int *level = new int[V]; 
 	// Create a queue for BFS 
 	list<int> queue; 
 
@@ -53,7 +54,7 @@ void Graph::BFS(int s)
 	// 'i' will be used to get all adjacent 
 	// vertices of a vertex 
 	list<int>::iterator i; 
-
+    level[s] = 0;
 	while(!queue.empty()) 
 	{ 
 		// Dequeue a vertex from queue and print it 
@@ -68,28 +69,36 @@ void Graph::BFS(int s)
 		{ 
 			if (!visited[*i]) 
 			{ 
+                level[*i] = level[s] + 1;
 				visited[*i] = true; 
 				queue.push_back(*i); 
 			} 
 		} 
 	} 
+    cout << "levels: ";
+    for (int i = 0; i<V; i++) {
+        cout << level[i] << " ";
+    }
+    cout << "\n";
 } 
 
 // Driver program to test methods of graph class 
 int main() 
 { 
 	// Create a graph given in the above diagram 
-	Graph g(4); 
+	Graph g(5); 
 	g.addEdge(0, 1); 
 	g.addEdge(0, 2); 
+	g.addEdge(1, 4); 
+	g.addEdge(1, 3); 
 	g.addEdge(1, 2); 
-	g.addEdge(2, 0); 
 	g.addEdge(2, 3); 
-	g.addEdge(3, 3); 
+	g.addEdge(3, 4); 
 
+    int vertex = 0;
 	cout << "Following is Breadth First Traversal "
-		<< "(starting from vertex 2) \n"; 
-	g.BFS(0); 
+		<< "(starting from vertex " << vertex <<") \n"; 
+	g.BFS(vertex); 
 
     cout << "\n";
 	return 0; 
